@@ -20,8 +20,11 @@ function initFlipperGenerator()
 	
 	$("#ktsCopyToClipboardButton").click(copyEmbedCodeToClipboard);
 
-	document.getElementById('files').addEventListener('change', handleFileSelect, false);
-	$("#ktsWriteConfigFile").click(writeConfigurationFile);
+	$("#ktsUploadSelector").click(function() {
+		$("#ktsUploadFileName").click();
+	});
+	document.getElementById('ktsUploadFileName').addEventListener('change', handleFileSelect, false);
+	$("#ktsDownloadConfigFile").click(writeConfigurationFile);
 }
 
 function handleLayoutChange(elem, previewClass)
@@ -57,10 +60,6 @@ function loadFlipperPreview(numItems, previewClass)
 	s += '<div >'
 	s += '<table>';
 	for (var i = 0; i < numItems; i++) {
-		/*
-		var paddedNum = ("00" + i).slice (-2);
-		var btnId = ' id="btn' + paddedNum + '" ';
-		*/
 		var btnId = ' id="' + makeButtonId(i) + '" ';
 		var btnClass = ' class="kts-flipper-generator ' + previewClass + '"';
 		var text = (i+1);
@@ -223,11 +222,6 @@ function handleFileSelect(evt)
 	reader.readAsText(configFile);
 }
 
-function writeConfigurationFile()
-{
-	console.log("write file");
-}
-
 function loadConfiguration(param)
 {
 	if (!('title' in param) || !('subtitle' in param) || !('images' in param)) {
@@ -260,4 +254,27 @@ function loadConfiguration(param)
 		var btnElement = document.getElementById(makeButtonId(i));
 		setFlipperPreviewImage(btnElement, theImages[i]);
 	}
+}
+
+function writeConfigurationFile()
+{
+	var param = getFlipperParameters('kts-preview-button');
+	downloadFile('flipper_configuration.txt', JSON.stringify(param));
+}
+
+
+function downloadFile(filename, data) 
+{
+    var blob = new Blob([data], {type: 'text/csv'});
+    if(window.navigator.msSaveOrOpenBlob) {
+        window.navigator.msSaveBlob(blob, filename);
+    }
+    else{
+        var elem = window.document.createElement('a');
+        elem.href = window.URL.createObjectURL(blob);
+        elem.download = filename;        
+        document.body.appendChild(elem);
+        elem.click();        
+        document.body.removeChild(elem);
+    }
 }

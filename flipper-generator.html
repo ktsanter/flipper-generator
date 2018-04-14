@@ -58,34 +58,13 @@
 
 	<div id='ktsFlipperPreview'> preview </div>
 
-	<input type="file" id="files" name="files[]" />
+	<button id='ktsUploadSelector'> upload configuration </button>
+	<input type="file" id="ktsUploadFileName" class='kts-dont-show' name="files[]" />
 	<br/>	
-	<button id='ktsWriteConfigFile'> save </button>
+	<button id='ktsDownloadConfigFile'> download configuration </button>
 
 	<script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js'></script>
 	<script src="scripts/flipper-generator.js"> </script>
 	<script> initFlipperGenerator(); </script>
-	
-
-
-<script>
-/*
-  function handleFileSelect(evt) {
-    var files = evt.target.files; // FileList object
-
-    // files is a FileList of File objects. List some properties.
-    var output = [];
-    for (var i = 0, f; f = files[i]; i++) {
-      output.push('<li><strong>', escape(f.name), '</strong> (', f.type || 'n/a', ') - ',
-                  f.size, ' bytes, last modified: ',
-                  f.lastModifiedDate ? f.lastModifiedDate.toLocaleDateString() : 'n/a',
-                  '</li>');
-    }
-    document.getElementById('list').innerHTML = '<ul>' + output.join('') + '</ul>';
-  }
-
-  document.getElementById('files').addEventListener('change', handleFileSelect, false);
-  */
-</script>
 </body>
 </html>
