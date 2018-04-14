@@ -4,45 +4,13 @@
   <title>  Twenty things test </title>
 
   <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js'></script>
-  <script src="scripts/twentythings.js"></script>
 
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" type="text/css" />
-  <link rel="stylesheet" href="styles/twentythings.css" type="text/css" />
+  <!--<link rel="stylesheet" href="styles/twentythings.css" type="text/css" />-->
 </head>
 
 <body>
-	<span class='kts-flipper'>
-		<table class='kts-main-container'>
-		<tr>
-		<td>
-			<table class='kts-flipper-table-title'>
-			  <tr>
-				<td> 
-				  <div id='ktsFlipperTitle' class='kts-flipper-title'> </div>
-				</td>
-				<td class='kts-flipper-control-cell'>
-				  <button id='ktsFlipperResetButton' class='kts-flipper-button'> reset </button>
-				</td>
-			  </tr>
-			</table>
-
-			<br/>
-		  
-			<div id='ktsFlipperSubtitle' class='kts-flipper-subtitle'> 
-			</div>
-		  
-			<br/>
-
-			<div class='kts-flipper-container'>
-			  <div id="ktsFlipperMainCard" class='kts-flipper-card'> </div>
-			</div>  
-		</td>
-		</tr>
-		</table>
-	</span>
-	
-	<script>
-	prepareFlipper();
-	</script>
+	<span id='ktsFlipperWrapper' class='kts-flipper'> loading... </span>
+	<script src="scripts/twentythings.js"> </script>
+	<script> ktsFlipperCode.prepareFlipper({"dummy": 123}); </script>
 </body>
 </html>
