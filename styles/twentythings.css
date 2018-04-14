@@ -1,4 +1,8 @@
-.container {
+.kts-flipper .kts-main-container {
+	border: 1px solid black;
+}
+
+.kts-flipper .kts-flipper-container {
   width: 550px;
   height: 400px;
   position: relative;
@@ -9,7 +13,7 @@
    perspective: 800px;
 }
 
-.card {
+.kts-flipper .kts-flipper-card {
   width: 100%;
   height: 100%;
   position: absolute;
@@ -23,7 +27,8 @@
   transform-style: preserve-3d;
   -webkit-transform-origin: 50% 50%;
 }
-.card div {
+
+.kts-flipper .kts-flipper-card div {
   display: block;
   height: 100%;
   width: 100%;
@@ -36,62 +41,59 @@
   -o-backface-visibility: hidden;
   backface-visibility: hidden;
 }
-.card .front {
+
+.kts-flipper .kts-flipper-card .front {
   border: 1px solid black;
   border-radius:6px;
   font-size: 40px;
   font-weight: bold;
 }
-.card .back {
+
+.kts-flipper .kts-flipper-card .back {
   -webkit-transform: rotateY( 180deg );
   -moz-transform: rotateY( 180deg );
   -o-transform: rotateY( 180deg );
   transform: rotateY( 180deg );
   font-size: 20px;
 }
-.card.flipped {
+
+.kts-flipper .kts-flipper-card.flipped {
   -webkit-transform: rotateY( 180deg );
   -moz-transform: rotateY( 180deg );
   -o-transform: rotateY( 180deg );
   transform: rotateY( 180deg );
 }
 
-.tblTitle {
+.kts-flipper .kts-flipper-table-title {
   background-color:#135F6F;
   color:white;
   width: 550px;
   border-radius:6px;
 }
 
-.txtTitle {
+.kts-flipper .kts-flipper-title {
   font: 20px arial;
 }
 
-.txtSubtitle {
+.kts-flipper .kts-flipper-subtitle {
   font: 14px arial;
 }
 
-.btnControl {
+.kts-flipper .kts-flipper-button {
   font: 16px arial;
   border-radius: 8px;
 }
 
-.tdControl {
+.kts-flipper .kts-flipper-control-cell {
   text-align: right;
 }
 
-.tblCard {
+.kts-flipper .kts-flipper-card-table {
   width: 100%;
   height: 100%;
 }
 
-.trCard {
-}
-
-.tdCard {
-}
-
-.btnCard {
+.kts-flipper .kts-flipper-card-button {
     background-color:#135F6F; 
     border: none;
     color: white;
@@ -102,4 +104,3 @@
     display: inline-block;
     font-size: 32px
 }
-
