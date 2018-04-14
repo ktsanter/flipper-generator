@@ -176,7 +176,7 @@ var ktsFlipperCode = {
 				var sclass = ' class="back" ';
 				var scontent = 'back of card ' + (i+1);
 				s += '<div ' + sid + sclass + '>' 
-				s += '<img src="' + this.param.images[i] + '" />'; 
+				s += '<img src="' + this.param.images[i] + '" style="height:100%" />'; 
 				s += '</div>';
 			}
 			  

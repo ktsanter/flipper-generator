@@ -108,28 +108,19 @@ function displayFlipperEmbedCode(previewClass)
 
 function getFlipperParameters(previewClass)
 {
+	var param = {};
+	
+	param.title = document.getElementById('ktsFlipperTitle').value;
+	param.subtitle = document.getElementById('ktsFlipperSubtitle').value;
+	
+	var flipperImages = [];
 	var imageElement = document.getElementsByClassName(previewClass);
 	for (var i = 0; i < imageElement.length; i++) {
-		console.log(imageElement[i].id + ':' + imageElement[i].value);
+		flipperImages[i] = imageElement[i].value;
 	}
-	/*
-	var nDates = 1;
-	if (document.getElementById('ktsDeadline2Checkbox').checked) {
-		nDates = 2;
-	}
-	var deadline1 = document.getElementById('ktsDeadlineDate1').value + ' 23:59:59';
-	var deadline2 = document.getElementById('ktsDeadlineDate2').value + ' 23:59:59';
-
-	return {
-		'nDates': nDates,
-		'titleDuring': [ document.getElementById('ktsDeadlineTitleDuring1').value, document.getElementById('ktsDeadlineTitleDuring2').value], 
-		'titleAfter': [document.getElementById('ktsDeadlineTitleAfter1').value, document.getElementById('ktsDeadlineTitleAfter2').value], 
-		'date': [deadline1, deadline2]
-	};
-	*/
-	return {
-		"dummy": 123
-	};
+	param.images = flipperImages;
+	
+	return param;
 }
 
 function generateFlipperEmbedCode(param)
@@ -154,7 +145,7 @@ function generateFlipperEmbedCode(param)
 		+ "ktsXHTTP.send();"
 		+ "</script>";
 */		
-	return sHTML;
+	return JSON.stringify(param);
 }
 
 function showArea(elemId)
