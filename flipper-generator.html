@@ -3,10 +3,9 @@
 <head>
 	<title>Flipper generator</title>
 	<link rel="stylesheet" type="text/css" href="styles/flipper-generator.css">
-	<!--<script src='scripts/countdowngenerator.js'> </script>-->
 </head>
 
-<body class='kts-flipper-generator' onload='initStuff()'>
+<body class='kts-flipper-generator'>
 	<div class='kts-style-title'> Flipper generator </div>
 	<hr>
 	
@@ -48,8 +47,11 @@
 		<button id='ktsCopyToClipboardButton'> copy to clipboard </button>
 		<span id='ktsCopiedNotice' class='kts-font kts-font-style2'> </span>
 		<br>
-		<textarea id='ktsEmbedCodeText' class='kts-embed-code' rows=20 cols=60  readonly>
+		<textarea id='ktsEmbedCodeText' class='kts-embed-code' rows=20 cols=60  readonly>loading...</textarea>
 	</div>
-	
+
+	<script src="scripts/flipper.js"> </script>
+	<script src="scripts/flipper-generator.js"> </script>
+	<script> ktsInitFlipperGenerator(); </script>
 </body>
 </html>
