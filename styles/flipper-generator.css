@@ -49,3 +49,14 @@
 	rows: 20;
 	cols: 60;
 }
+
+.kts-flipper-generator .kts-preview-button {
+	width: 100px;
+	height: 100px;
+	color: #c9cfd8;
+	background-color: #557A95;
+	border: 1px solid black;
+	border-radius:6px;
+	font-size: 20px;
+	font-weight: bold;
+}

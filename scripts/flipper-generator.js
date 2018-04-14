@@ -1,217 +1,181 @@
-var ktsFlipperCode = {
-	"param": {
-		"mainContentId": "ktsFlipperWrapper",
-		"mainCardId": "ktsFlipperMainCard",
+function initFlipperGenerator()
+{
+	var previewClass = 'kts-preview-button';
+	var elemDefaultLayout = document.getElementById('ktsFlipperLayout2');
+
+	elemDefaultLayout.checked = true;
+	handleLayoutChange(elemDefaultLayout, previewClass);
+
+	$(".kts-layout-button").change(function() {
+		handleLayoutChange(this, previewClass);
+	});
 	
-		"images":  [],
-		/*---- original 20 -----
-			"https://drive.google.com/uc?id=1FObgsMGdHQqBhQLeB8E-e4jmEfa6zN4W",
-			"https://drive.google.com/uc?id=1_iW927HURWBkurrQ3jSie9RAhVyAVaiZ",
-			"https://drive.google.com/uc?id=1-ieJ2oJC25gp0IR_EdREdBYK4gXJsY9L",
-			"https://drive.google.com/uc?id=1GOZ0T3xFrY5Nw7QobSRf02tLwy-48LGO",
-			"https://drive.google.com/uc?id=1yFl0J3VOrxWVVIkjpC2OBNWrirSGfB6w",
-			"https://drive.google.com/uc?id=1DDf1rNTGtpYuRehiQ2DNDv3peoy_S0qb",
-			"https://drive.google.com/uc?id=1jn2AHXyVxqluv9Mg17N-wRGY1Ex2xmZE",
-			"https://drive.google.com/uc?id=1X8cxOKQLa8Dl8vZcaaAM7EpP12CIBniV",
-			"https://drive.google.com/uc?id=1_OiPubAgUAHXTAJ_AoobRlcTwjiroiTl",
-			"https://drive.google.com/uc?id=109mYDkj86kpVLOM5HnVr0wapEapN-7ua",
-			"https://drive.google.com/uc?id=1PVWhmfGccM8eXYBRXcQGuaezPZ6xrFjZ",
-			"https://drive.google.com/uc?id=1EbRP2cV-3H9PH5Wwc-6sXombk-C6Kqgr",
-			"https://drive.google.com/uc?id=1KJKCrXRLyPAPNJUXVpedrM-WX35UdXeu",
-			"https://drive.google.com/uc?id=1obgJ4qpBMYeFQZQgQH-zoc65xr-b7lwD",
-			"https://drive.google.com/uc?id=1l9Mo3no78Ir2_3nCd1h5l045sAAlGLaO",
-			"https://drive.google.com/uc?id=1W3oFOtWPVV8KutA4cgv76DX3MFpMUAkk",
-			"https://drive.google.com/uc?id=16B_SS4cqSNhYC-Z6ruckX5Q9VST8rpbe",
-			"https://drive.google.com/uc?id=1fULDQ4ERqLGzzwJ-8ltbyrSnt13xAquH",
-			"https://drive.google.com/uc?id=1fXVPJn06YoANSvC9XGVQMxq701zaJl_z",
-			"https://drive.google.com/uc?id=133xtCM6awjqhF8zsTZc94q309bd4mfPP"
-		*---- end of original 20 ----*/
+	$("#ktsGenerateButton").click(function() {
+		displayFlipperEmbedCode(previewClass)
+	});
+	
+	$(".kts-hide-embed").click(function() {
+		hideArea('ktsEmbedCodeArea');
+	});
+	
+	$("#ktsCopyToClipboardButton").click(copyEmbedCodeToClipboard);
+}
+
+function handleLayoutChange(elem, previewClass)
+{
+	document.getElementById('ktsFlipperPreview').innerHTML = loadFlipperPreview(elem.value, previewClass);
+	
+	$("." + previewClass).click(function() {
+		hideArea('ktsEmbedCodeArea');
+		handleFlipperPreviewButtonClick(this);
+	});	
+}
+
+
+function loadFlipperPreview(numItems, previewClass) 
+{
+	var layoutRowsCols = {
+		"9": [3, 3],
+		"16": [4, 4],
+		"20": [4, 5],
+		"25": [5, 5],
+		"30": [6, 5]
+	};
+	var layout = layoutRowsCols[numItems];
+	if (layout == null) {
+		console.log("no layout for this number of items: " + numItems);
+		return;
+	}
+	
+	var rows = layout[0];
+	var cols = layout[1];
+	
+	var s = '';
+	s += '<div >'
+	s += '<table>';
+	for (var i = 0; i < numItems; i++) {
+		var paddedNum = ("00" + i).slice (-2);
+		var btnId = ' id="btn' + paddedNum + '" ';
+		var btnClass = ' class="kts-flipper-generator ' + previewClass + '"';
+		var text = (i+1);
 		
-		"title": "",
-		"subtitle": ""
-	},
+		if (i % cols == 0) s += '<tr>';
 
-	"baseHTML": ""
-		+ "<table class='kts-main-container'>"
-		+ "<tr>"
-		+ "<td>"
-		+ "	<table class='kts-flipper-table-title'>"
-		+ "	  <tr>"
-		+ "		<td>"
-		+ "		  <div id='ktsFlipperTitle' class='kts-flipper-title'> </div>"
-		+ "		</td>"
-		+ "		<td class='kts-flipper-control-cell'>"
-		+ "		  <button id='ktsFlipperResetButton' class='kts-flipper-button'> reset </button>"
-		+ "		</td>"
-		+ "	  </tr>"
-		+ "	</table>"
-		+ "	<br/>"
-		+ "	<div id='ktsFlipperSubtitle' class='kts-flipper-subtitle'>"
-		+ "	</div>" 
-		+ "	<br/>"
-		+ "	<div class='kts-flipper-container'>"
-		+ "	  <div id='ktsFlipperMainCard' class='kts-flipper-card'> </div>"
-		+ "	</div>"
-		+ "</td>"
-		+ "</tr>"
-		+ "</table>",
+		s += '<td>';
+		s += '<button ' + btnId + btnClass + '>' + text + '</button>';
+		s += '</td>';
+		
+		if (i % cols == cols - 1) s += '</tr>';
+	}
 
-	"prepareFlipper": function(inputParameters)
-		{
-			this.loadParameters(inputParameters);
-			this.loadFlipperCSS();
-		},
+	if (i % cols != 0) s += '</tr>';
+	s += '</table>';
+	s += '</div>';
 
-	"loadParameters": function(inputParameters) 
-		{
-			console.log("input parameters:");
-			console.log(JSON.stringify(inputParameters));
-			this.param.title = inputParameters.title;
-			this.param.subtitle = inputParameters.subtitle;
-			for (var i = 0; i < inputParameters.images.length; i++) {
-				this.param.images[i] = inputParameters.images[i];
-			}
-		},
+	return s;
+}
+
+function handleFlipperPreviewButtonClick(elemButton)
+{
+	var origWidth = elemButton.offsetWidth;
+	var origHeight = elemButton.offsetHeight;
+	var idNum = elemButton.id.slice(-2);
 	
-	"loadFlipperCSS": function ()
-		{
-			var ktsFlipperStyleSheet = 'https://raw.githubusercontent.com/ktsanter/twentythings-generator/master/styles/twentythings.css';
-			var xhttp = new XMLHttpRequest();
-			xhttp.onreadystatechange = function() {
-				if (this.readyState == 4 && this.status == 200) {
-					var styleElement = document.createElement('style');
-					styleElement.innerHTML = xhttp.responseText;
-					document.head.appendChild(styleElement);
-					
-					ktsFlipperCode.loadHTML();
-					ktsFlipperCode.loadDescription();
-					ktsFlipperCode.loadMainCard();
-					$("#ktsFlipperResetButton").click(ktsFlipperCode.handleReset);
-				}
-			};
-			xhttp.open("GET", ktsFlipperStyleSheet, true);
-			xhttp.send();
-		},
+    var txtURL = prompt("Please enter the URL for image #" + (idNum * 1), elemButton.value);
+
+    if (txtURL == null || txtURL == "") {
+		elemButton.style.background = "";
+		elemButton.value = "";
+
+	} else {
+		elemButton.style.background = "url(" + txtURL + ") no-repeat right top";
+		elemButton.style.backgroundSize = origWidth + "px " + origHeight + "px";
+		elemButton.value = txtURL;
+    }
+}
+
+
+function displayFlipperEmbedCode(previewClass)
+{
+	var param = getFlipperParameters(previewClass);
+	var embedCode = generateFlipperEmbedCode(param);
+	var embedElement = document.getElementById('ktsEmbedCodeText');
 	
-	"loadHTML": function()
-		{
-			$("#" + this.param.mainContentId).html(this.baseHTML);
-		},
+	embedElement.value = embedCode;
+	document.getElementById('ktsCopiedNotice').innerHTML = '';
+	showArea('ktsEmbedCodeArea');
+}
 
-	"loadDescription": function()
-		{  
-			$("#ktsFlipperTitle").html(this.param.title);
-			$("#ktsFlipperSubtitle").html(this.param.subtitle);
-		},
+function getFlipperParameters(previewClass)
+{
+	var imageElement = document.getElementsByClassName(previewClass);
+	for (var i = 0; i < imageElement.length; i++) {
+		console.log(imageElement[i].id + ':' + imageElement[i].value);
+	}
+	/*
+	var nDates = 1;
+	if (document.getElementById('ktsDeadline2Checkbox').checked) {
+		nDates = 2;
+	}
+	var deadline1 = document.getElementById('ktsDeadlineDate1').value + ' 23:59:59';
+	var deadline2 = document.getElementById('ktsDeadlineDate2').value + ' 23:59:59';
 
-	"loadMainCard": function()
-		{
-			var cardSelector = '#' + this.param.mainCardId;
-			var numItems = this.getNumCards();
-			var s = '';
+	return {
+		'nDates': nDates,
+		'titleDuring': [ document.getElementById('ktsDeadlineTitleDuring1').value, document.getElementById('ktsDeadlineTitleDuring2').value], 
+		'titleAfter': [document.getElementById('ktsDeadlineTitleAfter1').value, document.getElementById('ktsDeadlineTitleAfter2').value], 
+		'date': [deadline1, deadline2]
+	};
+	*/
+	return {
+		"dummy": 123
+	};
+}
 
-			s += this.loadFrontOfCard(numItems);
-			s += this.loadBackOfCard(numItems);
+function generateFlipperEmbedCode(param)
+{
+	var sHTML = ""
+		+ "embed code";
+	/*
+		+ "<span>"
+		+ "  <span id='ktsCountdownContent'> ... </span>"
+		+ "</span>"
+		+ "<script>"
+		+ "var ktsXHTTP = new XMLHttpRequest();"
+		+ "ktsXHTTP.onreadystatechange = function() {"
+		+ "if (this.readyState == 4 && this.status == 200) {"
+		+ "	   var scriptElement = document.createElement('script');"
+		+ "    scriptElement.innerHTML = ktsXHTTP.responseText;"
+		+ "	   document.getElementById('ktsCountdownContent').parentElement.appendChild(scriptElement);"
+		+ "	   ktsCountdownCode.ktsCreateCountdownTimer(" + JSON.stringify(param) + ");"
+		+ "	}"
+		+ "};"
+		+ "ktsXHTTP.open('GET', 'https://raw.githubusercontent.com/ktsanter/countdown-generator/master/scripts/cd_generated.js', true);"
+		+ "ktsXHTTP.send();"
+		+ "</script>";
+*/		
+	return sHTML;
+}
 
-			$(cardSelector).html(s);
+function showArea(elemId)
+{
+	var embedAreaClist = document.getElementById(elemId).classList;
 
-			$(".kts-flipper-card-button").click(function() {
-				ktsFlipperCode.flip(ktsFlipperCode.param.mainCardId, this.id);
-			});
+	if (embedAreaClist.contains('kts-dont-show')) {
+		embedAreaClist.remove('kts-dont-show');
+	}
+}
 
-			$(".back").css("visibility","hidden");
-			$(".back").click(function() {
-				ktsFlipperCode.unflip();
-			});
-		},
+function hideArea(elemId)
+{
+	document.getElementById(elemId).classList.add('kts-dont-show');
+}
 
-	"loadFrontOfCard": function(numItems) 
-		{
-			var layoutRowsCols = {
-				"9": [3, 3],
-				"16": [4, 4],
-				"20": [4, 5],
-				"25": [5, 5],
-				"30": [6, 5]
-			};
-			var layout = layoutRowsCols[numItems];
-			if (layout == null) {
-				console.log("no layout for this number of items: " + numItems);
-				return;
-			}
-			
-			var rows = layout[0];
-			var cols = layout[1];
-			
-			var s = '';
-			s += '<div id="card-front" class="front">'
-			s += '<table class="kts-flipper-card-table">';
-			for (var i = 0; i < numItems; i++) {
-				if (i % cols == 0) s += '<tr>';
-				var paddedNum = ("00" + i).slice (-2);
-				var sid = ' id="btn' + paddedNum + '" ';
-				var sclass = ' class="kts-flipper-card-button" ';
-				var text = '#' + (i+1);
-				
-				s += '<td>';
-				s += '<button ' + sid + sclass + '>' + text + '</button>';
-				s += '</td>';
-				if (i % cols == cols - 1) s += '</tr>';
-			}
-
-			if (i % cols != 0) s += '</tr>';
-			s += '</table>';
-			s += '</div>';
-			
-			return s;
-		},
-
-	"loadBackOfCard": function(numItems) 
-		{
-			var s= '';
-			  
-			for (var i = 0; i < numItems; i++) {
-				var paddedNum = ("00" + i).slice (-2);
-				var sid = ' id="back' + paddedNum + '" ';
-				var sclass = ' class="back" ';
-				var scontent = 'back of card ' + (i+1);
-				s += '<div ' + sid + sclass + '>' 
-				s += '<img src="' + this.param.images[i] + '" />'; 
-				s += '</div>';
-			}
-			  
-			return s;
-		},
-
-	"flip": function(id1, id2) 
-		{
-			var selector1 = '#' + id1;
-			var selector2 = '#back' + id2.substring(id2.length-2);
-			var selector3 = '#' + id2;
-			  
-			$(".back").css("visibility","hidden");
-			$(selector2).css("visibility","visible");
-			$(selector1).toggleClass('flipped');
-			$(selector3).css("visibility","hidden");
-		},
-
-	"unflip": function() 
-		{
-			var selector = '#' + ktsFlipperCode.param.mainCardId;
-			$(selector).toggleClass('flipped');
-		},
- 
-	"handleReset": function() 
-		{
-			var selector = '#' + ktsFlipperCode.param.mainCardId;
-			$(".kts-flipper-card-button").css("visibility","visible");
-			if ($(selector).hasClass("flipped")) {
-				$(selector).removeClass("flipped");
-			}
-		},	
- 
-	"getNumCards": function() 
-		{
-			return this.param.images.length;
-		}
-};
+function copyEmbedCodeToClipboard()
+{
+	var embedElement = document.getElementById('ktsEmbedCodeText');
+	embedElement.select();
+	document.execCommand("Copy");
+	embedElement.selectionEnd = embedElement.selectionStart;
+	document.getElementById('ktsCopiedNotice').innerHTML = 'embed code copied to clipboard';
+}
