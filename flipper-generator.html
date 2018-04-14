@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Flipper generator</title>
+	<link rel="stylesheet" type="text/css" href="styles/flipper-generator.css">
+	<!--<script src='scripts/countdowngenerator.js'> </script>-->
+</head>
+
+<body class='kts-flipper-generator' onload='initStuff()'>
+	<div class='kts-style-title'> Flipper generator </div>
+	<hr>
+	
+	<table class='kts-background kts-full-border kts-font-style1'> 
+		<tr>
+			<td> title </td>
+			<td> <input id='ktsFlipperTitle' class='kts-font kts-font-style3' type='text' value='<title>' length=30 maxlength=30> </td>
+		</tr>
+		
+		<tr>
+			<td> subtitle </td>
+			<td> <input id='ktsFlipperSubtitle' class='kts-font kts-font-style3' type='text' value='<subtitle>' length=60 maxlength=60> </td>
+		</tr>
+		
+		<tr>
+			<td> layout </td>
+			<td>
+				<input id='ktsFlipperLayout0' type="radio" name="ktsFlipperLayout" value="9"> 3 x 3 <br>
+				<input id='ktsFlipperLayout1' type="radio" name="ktsFlipperLayout" value="16"> 4 x 4 <br>
+				<input id='ktsFlipperLayout2' type="radio" name="ktsFlipperLayout" value="20" checked> 4 x 5 <br>			
+				<input id='ktsFlipperLayout3' type="radio" name="ktsFlipperLayout" value="25"> 5 x 5 <br>			
+				<input id='ktsFlipperLayout4' type="radio" name="ktsFlipperLayout" value="30"> 6 x 5 <br>			
+			</td>
+		</tr>
+		
+		<tr>
+			<td> </td>
+			<td> </td>
+			<td class='kts-align-right'> 
+				<button id='ktsGenerateButton'> generate </button> 
+			</td>
+		</tr>
+	</table>
+	
+	<br>
+	
+	<div id='ktsEmbedCodeArea' class='kts-dont-show'>
+		<br>
+		<button id='ktsCopyToClipboardButton'> copy to clipboard </button>
+		<span id='ktsCopiedNotice' class='kts-font kts-font-style2'> </span>
+		<br>
+		<textarea id='ktsEmbedCodeText' class='kts-embed-code' rows=20 cols=60  readonly>
+	</div>
+	
+</body>
+</html>

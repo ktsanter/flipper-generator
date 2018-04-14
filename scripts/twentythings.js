@@ -3,7 +3,8 @@ var ktsFlipperCode = {
 		"mainContentId": "ktsFlipperWrapper",
 		"mainCardId": "ktsFlipperMainCard",
 	
-		"images":  [
+		"images":  [],
+		/*---- original 20 -----
 			"https://drive.google.com/uc?id=1FObgsMGdHQqBhQLeB8E-e4jmEfa6zN4W",
 			"https://drive.google.com/uc?id=1_iW927HURWBkurrQ3jSie9RAhVyAVaiZ",
 			"https://drive.google.com/uc?id=1-ieJ2oJC25gp0IR_EdREdBYK4gXJsY9L",
@@ -24,10 +25,10 @@ var ktsFlipperCode = {
 			"https://drive.google.com/uc?id=1fULDQ4ERqLGzzwJ-8ltbyrSnt13xAquH",
 			"https://drive.google.com/uc?id=1fXVPJn06YoANSvC9XGVQMxq701zaJl_z",
 			"https://drive.google.com/uc?id=133xtCM6awjqhF8zsTZc94q309bd4mfPP"
-		],
+		*---- end of original 20 ----*/
 		
-		"title": "20 Things About Me",
-		"subtitle": "Here are 20 things about me you might find interesting. Click on a card to flip it."
+		"title": "",
+		"subtitle": ""
 	},
 
 	"baseHTML": ""
@@ -62,11 +63,15 @@ var ktsFlipperCode = {
 		},
 
 	"loadParameters": function(inputParameters) 
-	{
-		//load param from inputParameters
-		console.log("input parameters:");
-		console.log(JSON.stringify(inputParameters));
-	},
+		{
+			console.log("input parameters:");
+			console.log(JSON.stringify(inputParameters));
+			this.param.title = inputParameters.title;
+			this.param.subtitle = inputParameters.subtitle;
+			for (var i = 0; i < inputParameters.images.length; i++) {
+				this.param.images[i] = inputParameters.images[i];
+			}
+		},
 	
 	"loadFlipperCSS": function ()
 		{
@@ -122,11 +127,27 @@ var ktsFlipperCode = {
 
 	"loadFrontOfCard": function(numItems) 
 		{
+			var layoutRowsCols = {
+				"9": [3, 3],
+				"16": [4, 4],
+				"20": [4, 5],
+				"25": [5, 5],
+				"30": [6, 5]
+			};
+			var layout = layoutRowsCols[numItems];
+			if (layout == null) {
+				console.log("no layout for this number of items: " + numItems);
+				return;
+			}
+			
+			var rows = layout[0];
+			var cols = layout[1];
+			
 			var s = '';
 			s += '<div id="card-front" class="front">'
 			s += '<table class="kts-flipper-card-table">';
 			for (var i = 0; i < numItems; i++) {
-				if (i % 5 == 0) s += '<tr>';
+				if (i % cols == 0) s += '<tr>';
 				var paddedNum = ("00" + i).slice (-2);
 				var sid = ' id="btn' + paddedNum + '" ';
 				var sclass = ' class="kts-flipper-card-button" ';
@@ -135,10 +156,10 @@ var ktsFlipperCode = {
 				s += '<td>';
 				s += '<button ' + sid + sclass + '>' + text + '</button>';
 				s += '</td>';
-				if (i % 5 == 4) s += '</tr>';
+				if (i % cols == cols - 1) s += '</tr>';
 			}
 
-			if (i % 5 != 0) s += '</tr>';
+			if (i % cols != 0) s += '</tr>';
 			s += '</table>';
 			s += '</div>';
 			
