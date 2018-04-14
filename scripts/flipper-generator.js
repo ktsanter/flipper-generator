@@ -19,6 +19,9 @@ function initFlipperGenerator()
 	});
 	
 	$("#ktsCopyToClipboardButton").click(copyEmbedCodeToClipboard);
+
+	document.getElementById('files').addEventListener('change', handleFileSelect, false);
+	$("#ktsWriteConfigFile").click(writeConfigurationFile);
 }
 
 function handleLayoutChange(elem, previewClass)
@@ -54,8 +57,11 @@ function loadFlipperPreview(numItems, previewClass)
 	s += '<div >'
 	s += '<table>';
 	for (var i = 0; i < numItems; i++) {
+		/*
 		var paddedNum = ("00" + i).slice (-2);
 		var btnId = ' id="btn' + paddedNum + '" ';
+		*/
+		var btnId = ' id="' + makeButtonId(i) + '" ';
 		var btnClass = ' class="kts-flipper-generator ' + previewClass + '"';
 		var text = (i+1);
 		
@@ -75,22 +81,33 @@ function loadFlipperPreview(numItems, previewClass)
 	return s;
 }
 
+function makeButtonId(num)
+{
+	var paddedNum = ("00" + num).slice(-2);
+	return 'btn' + paddedNum;
+}
+
 function handleFlipperPreviewButtonClick(elemButton)
 {
-	var origWidth = elemButton.offsetWidth;
-	var origHeight = elemButton.offsetHeight;
 	var idNum = elemButton.id.slice(-2);
 	
     var txtURL = prompt("Please enter the URL for image #" + (idNum * 1), elemButton.value);
+	setFlipperPreviewImage(elemButton, txtURL);
+}
 
-    if (txtURL == null || txtURL == "") {
+function setFlipperPreviewImage(elemButton, imageURL)
+{
+	var origWidth = elemButton.offsetWidth;
+	var origHeight = elemButton.offsetHeight;
+
+    if (imageURL == null || imageURL == "") {
 		elemButton.style.background = "";
 		elemButton.value = "";
 
 	} else {
-		elemButton.style.background = "url(" + txtURL + ") no-repeat right top";
+		elemButton.style.background = "url(" + imageURL + ") no-repeat right top";
 		elemButton.style.backgroundSize = origWidth + "px " + origHeight + "px";
-		elemButton.value = txtURL;
+		elemButton.value = imageURL;
     }
 }
 
@@ -169,4 +186,78 @@ function copyEmbedCodeToClipboard()
 	document.execCommand("Copy");
 	embedElement.selectionEnd = embedElement.selectionStart;
 	document.getElementById('ktsCopiedNotice').innerHTML = 'embed code copied to clipboard';
+}
+
+function handleFileSelect(evt)
+{
+	var fileList = evt.target.files;
+	if (fileList.length < 1) {
+		console.log('no file selected');
+		return;
+	}
+	
+	var configFile = fileList[0];
+	if (!configFile.type.match('text.plain')) {
+		console.log('wrong file type: ' + configFile.type + '\nfile=' + configFile.name);
+		return;
+	}
+	if (configFile.size > 5000) {
+		console.log('file is too big: ' + configFile.size + '\nfile=' + configFile.name);
+		return;
+	}
+	
+	var reader = new FileReader();
+
+	reader.onload = (function(theFile) {
+        return function(e) {
+			var param;
+			try {
+				param = JSON.parse(e.target.result);
+				loadConfiguration(param);
+			} catch(e) {
+				console.log('not a valid configuration file - unable to parse as JSON');
+			}
+		};
+	})(configFile);
+
+	reader.readAsText(configFile);
+}
+
+function writeConfigurationFile()
+{
+	console.log("write file");
+}
+
+function loadConfiguration(param)
+{
+	if (!('title' in param) || !('subtitle' in param) || !('images' in param)) {
+		console.log('not a valid configuration file - missing one or more elements');
+		return;
+	}
+	
+	var nImages = param.images.length;
+	var layoutElementId = {
+		"9": "ktsFlipperLayout0",
+		"16": "ktsFlipperLayout1",
+		"20": "ktsFlipperLayout2",
+		"25": "ktsFlipperLayout3",
+		"30": "ktsFlipperLayout4"
+	}
+
+	if (!(nImages in layoutElementId)) {
+		console.log('not a valid number of images: ' + nImages);
+		return;
+	}
+	
+	document.getElementById('ktsFlipperTitle').value = param.title;
+	document.getElementById('ktsFlipperSubtitle').value = param.subtitle;
+	
+	var layoutElement = document.getElementById(layoutElementId[nImages]);
+	layoutElement.click();
+	
+	var theImages = param.images;
+	for (var i = 0; i < nImages; i++) {
+		var btnElement = document.getElementById(makeButtonId(i));
+		setFlipperPreviewImage(btnElement, theImages[i]);
+	}
 }

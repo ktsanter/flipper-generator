@@ -1,0 +1,4 @@
+- saving configuration
+- finish embed code
+- preview?
+- sanitize user input
