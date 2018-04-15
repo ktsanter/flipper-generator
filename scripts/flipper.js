@@ -87,7 +87,7 @@ var ktsFlipperCode = {
 	
 	"loadFlipperCSS": function ()
 		{
-			/*---- non-local ----
+			/*---- non-local ----*/
 			var ktsFlipperStyleSheet = 'https://raw.githubusercontent.com/ktsanter/twentythings-generator/master/styles/flipper.css';
 			var xhttp = new XMLHttpRequest();
 			xhttp.onreadystatechange = function() {
@@ -104,14 +104,14 @@ var ktsFlipperCode = {
 			};
 			xhttp.open("GET", ktsFlipperStyleSheet, true);
 			xhttp.send();
-			----- end of non-local ----*/
+			/*----- end of non-local ----*/
 			
-			/*---- local  ------*/
+			/*---- local  ------
 			ktsFlipperCode.loadHTML();
 			ktsFlipperCode.loadDescription();
 			ktsFlipperCode.loadMainCard();
 			$("#ktsFlipperResetButton").click(ktsFlipperCode.handleReset);
-			/*---- end of local -----*/
+			---- end of local -----*/
 		},
 	
 	"loadHTML": function()
