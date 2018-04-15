@@ -28,7 +28,8 @@ var ktsFlipperCode = {
 		*---- end of original 20 ----*/
 		
 		"title": "",
-		"subtitle": ""
+		"subtitle": "",
+		"colorscheme": 0
 	},
 
 	"baseHTML": ""
@@ -55,6 +56,15 @@ var ktsFlipperCode = {
 		+ "</td>"
 		+ "</tr>"
 		+ "</table>",
+		
+	"colorSchemeClasses": [
+			'kts-flipper-colorscheme-000',
+			'kts-flipper-colorscheme-001',
+			'kts-flipper-colorscheme-002',
+			'kts-flipper-colorscheme-003',
+			'kts-flipper-colorscheme-004',
+			'kts-flipper-colorscheme-005'
+		],
 
 	"prepareFlipper": function(inputParameters)
 		{
@@ -68,6 +78,8 @@ var ktsFlipperCode = {
 			console.log(JSON.stringify(inputParameters));
 			this.param.title = inputParameters.title;
 			this.param.subtitle = inputParameters.subtitle;
+			this.param.colorscheme = inputParameters.colorscheme;
+			
 			for (var i = 0; i < inputParameters.images.length; i++) {
 				this.param.images[i] = inputParameters.images[i];
 			}
@@ -75,6 +87,7 @@ var ktsFlipperCode = {
 	
 	"loadFlipperCSS": function ()
 		{
+			/*---- non-local ----
 			var ktsFlipperStyleSheet = 'https://raw.githubusercontent.com/ktsanter/twentythings-generator/master/styles/flipper.css';
 			var xhttp = new XMLHttpRequest();
 			xhttp.onreadystatechange = function() {
@@ -91,11 +104,21 @@ var ktsFlipperCode = {
 			};
 			xhttp.open("GET", ktsFlipperStyleSheet, true);
 			xhttp.send();
+			----- end of non-local ----*/
+			
+			/*---- local  ------*/
+			ktsFlipperCode.loadHTML();
+			ktsFlipperCode.loadDescription();
+			ktsFlipperCode.loadMainCard();
+			$("#ktsFlipperResetButton").click(ktsFlipperCode.handleReset);
+			/*---- end of local -----*/
 		},
 	
 	"loadHTML": function()
 		{
 			$("#" + this.param.mainContentId).html(this.baseHTML);
+			var wrapper = document.getElementById('ktsFlipperWrapper');
+			wrapper.classList.add(this.colorSchemeClasses[this.param.colorscheme]);
 		},
 
 	"loadDescription": function()

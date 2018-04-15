@@ -1,23 +1,36 @@
+
 .kts-flipper-generator {
 	 font-family: Arial, Helvetica, sans-serif;
+	--kts-fpg-color1: #557A95;
+	--kts-fpg-color2: #c9cfd8;
+	--kts-fpg-color3: white;
 }
 
 .kts-flipper-generator .kts-background {
-	background-color: #557A95;
+	background-color: var(--kts-fpg-color1);
 }
 
 .kts-flipper-generator .kts-style-title {
 	font-size: 16px;
 	font-weight: bold;
-	color: #557A95;
+	color: var(--kts-fpg-color1);
 }
 
-.kts-flipper-generator .kts-preview-button {
+.kts-flipper-generator .kts-preview-close-button {
 	font-size: 10px;
 	font-weight: bold;
-	background-color: #557A95;
-	color: white;
-	border: 1px solid #557A95;
+	background-color: var(--kts-fpg-color1);
+	color: var(--kts-fpg-color3); 
+	border: 1px solid var(--kts-fpg-color1);
+	border-radius: 8px;
+}
+
+.kts-flipper-generator .kts-control-button {
+	font-size: 10px;
+	font-weight: bold;
+	background-color: var(--kts-fpg-color3);
+	color: var(--kts-fpg-color1);
+	border: 1px solid var(--kts-fpg-color3);
 	border-radius: 8px;
 }
 
@@ -33,7 +46,7 @@
 
 .kts-flipper-generator .kts-font-style1 {
 	font-size: 12px;
-	color: #c9cfd8;
+	color: var(--kts-fpg-color2);
 }
 
 .kts-flipper-generator .kts-font-style2 {
@@ -43,7 +56,7 @@
 
 .kts-flipper-generator .kts-font-style3 {
 	font-size: 12px;
-	color: #557A95;
+	color: var(--kts-fpg-color1);
 }
 
 .kts-flipper-generator .kts-disabled {
@@ -62,8 +75,8 @@
 .kts-flipper-generator .kts-preview-layout-button {
 	width: 100px;
 	height: 100px;
-	color: #c9cfd8;
-	background-color: #557A95;
+	color: var(--kts-fpg-color2);
+	background-color: var(--kts-fpg-color1);
 	border: 1px solid black;
 	border-radius:6px;
 	font-size: 20px;

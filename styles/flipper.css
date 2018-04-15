@@ -1,5 +1,42 @@
+
 .kts-flipper .kts-main-container {
 	/*border: 1px solid black;*/
+}
+
+.kts-flipper-colorscheme-000 {
+	--kts-flipper-color1: black;  /* border and subtitle text */
+	--kts-flipper-color2: #135F6F; /* nominal background */
+	--kts-flipper-color3: white;  /* nominal foreground */
+}
+
+.kts-flipper-colorscheme-001 {
+	--kts-flipper-color1: black;  
+	--kts-flipper-color2: white;  
+	--kts-flipper-color3: #135F6F;
+}
+
+.kts-flipper-colorscheme-002 {
+	--kts-flipper-color1: black;
+	--kts-flipper-color2: #3474db;
+	--kts-flipper-color3: white;
+}
+
+.kts-flipper-colorscheme-003 {
+	--kts-flipper-color1: black;
+	--kts-flipper-color2: white;
+	--kts-flipper-color3: #3474db;
+}
+
+.kts-flipper-colorscheme-004 {
+	--kts-flipper-color1: black;
+	--kts-flipper-color2: #abb7cc;
+	--kts-flipper-color3: white; 
+}
+
+.kts-flipper-colorscheme-005 {
+	--kts-flipper-color1: black;
+	--kts-flipper-color2: white; 
+	--kts-flipper-color3: #abb7cc;
 }
 
 .kts-flipper .kts-flipper-container {
@@ -33,7 +70,7 @@
   height: 100%;
   width: 100%;
   line-height: 50px;
-  color: white;
+  color: var(--kts-flipper-color3);
   text-align: center;
   position: absolute;
   -webkit-backface-visibility: hidden;
@@ -43,7 +80,7 @@
 }
 
 .kts-flipper .kts-flipper-card .front {
-  border: 1px solid black;
+  border: 1px solid var(--kts-flipper-color1);
   border-radius:6px;
   font-size: 40px;
   font-weight: bold;
@@ -65,9 +102,10 @@
 }
 
 .kts-flipper .kts-flipper-table-title {
-  background-color:#135F6F;
-  color:white;
+  background-color: var(--kts-flipper-color2);
+  color: var(--kts-flipper-color3);
   width: 550px;
+  border: 1px solid var(--kts-flipper-color1);
   border-radius:6px;
 }
 
@@ -77,12 +115,15 @@
 
 .kts-flipper .kts-flipper-subtitle {
   font: 14px arial;
+  color: var(--kts-flipper-color1);
 }
 
 .kts-flipper .kts-flipper-button {
-  font: 14px arial;
+  font: 12px arial;
   border-radius: 8px;
-  border: 1px solid black;
+  background-color: var(--kts-flipper-color3);
+  color: var(--kts-flipper-color2);
+  border: 1px solid var(--kts-flipper-color3);
 }
 
 .kts-flipper .kts-flipper-control-cell {
@@ -92,12 +133,14 @@
 .kts-flipper .kts-flipper-card-table {
   width: 100%;
   height: 100%;
+  background-color: var(--kts-flipper-color3);
 }
 
 .kts-flipper .kts-flipper-card-button {
-    background-color:#135F6F; 
-    border: none;
-    color: white;
+    background-color: var(--kts-flipper-color2);
+    border: 1px solid var(--kts-flipper-color1);
+	border-radius: 6px;
+    color: var(--kts-flipper-color3);
     width: 90%;
     height: 90%;
     text-align: center;

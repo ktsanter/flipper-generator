@@ -278,7 +278,6 @@ function handleDownloadFileSelect()
 	downloadFile('flipper_configuration.json', JSON.stringify(param));
 }
 
-
 function downloadFile(filename, data) 
 {
     var blob = new Blob([data], {type: 'application/json'});
@@ -297,7 +296,7 @@ function downloadFile(filename, data)
 
 function showPreviewWithCurrentLayout()
 {
-	console.log('show preview');
+	hideArea('ktsEmbedCodeArea');
 	document.getElementById('ktsMainFlipperGeneratorContainer').style.display = 'none';
 	document.getElementById('ktsFlipperPreview').style.display = '';
 
@@ -308,8 +307,6 @@ function showPreviewWithCurrentLayout()
 			scriptElement.innerHTML = ktsXHTTP.responseText;		
 			document.getElementById('ktsFlipperWrapper').parentElement.appendChild(scriptElement);	
 			var p2 = getFlipperParameters('kts-preview-layout-button');
-			console.log('parameters:');
-			console.log(JSON.stringify(p2));
 			ktsFlipperCode.prepareFlipper(p2);	
 		}
 	};
@@ -319,7 +316,6 @@ function showPreviewWithCurrentLayout()
 
 function hidePreview()
 {
-	console.log('hide preview');
 	document.getElementById('ktsMainFlipperGeneratorContainer').style.display = '';
 	document.getElementById('ktsFlipperPreview').style.display = 'none';
 }

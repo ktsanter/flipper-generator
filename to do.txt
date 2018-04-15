@@ -1,4 +1,5 @@
-- saving configuration
 - finish embed code
-- preview?
 - sanitize user input
+- sizing tips and control
+- choosable color scheme
+- eliminate JQuery?
