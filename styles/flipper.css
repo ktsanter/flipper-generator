@@ -80,8 +80,9 @@
 }
 
 .kts-flipper .kts-flipper-button {
-  font: 16px arial;
+  font: 14px arial;
   border-radius: 8px;
+  border: 1px solid black;
 }
 
 .kts-flipper .kts-flipper-control-cell {

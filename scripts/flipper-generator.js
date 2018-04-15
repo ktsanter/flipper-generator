@@ -20,10 +20,9 @@ function initFlipperGenerator()
 	
 	$("#ktsCopyToClipboardButton").click(copyEmbedCodeToClipboard);
 
-	$("#ktsUploadSelector").click(function() {
-		$("#ktsUploadFileName").click();
-	});
+	$("#ktsUploadSelector").click(triggerConfigFileUpload);
 	document.getElementById('ktsUploadFileName').addEventListener('change', handleUploadFileSelect, false);
+	
 	$("#ktsDownloadConfigFile").click(handleDownloadFileSelect);
 
 	$("#ktsShowPreviewButton").click(showPreviewWithCurrentLayout);
@@ -32,9 +31,24 @@ function initFlipperGenerator()
 	$("#ktsClosePreviewButton").click(hidePreview);
 }
 
+function triggerConfigFileUpload()
+{
+	var ctrl = document.getElementById('ktsUploadFileName');
+	
+	try {
+		ctrl.value = null;
+	} catch(ex) { }
+
+	if (ctrl.value) {
+		ctrl.parentNode.replaceChild(ctrl.cloneNode(true), ctrl);
+	}
+
+	ctrl.click();
+}
+
 function handleLayoutChange(elem, previewClass)
 {
-	document.getElementById('ktsFlipperLayoutPreview').innerHTML = loadFlipperPreview(elem.value, previewClass);
+	document.getElementById('ktsFlipperLayoutPreview').innerHTML = loadFlipperImageLayout(elem.value, previewClass);
 	
 	$("." + previewClass).click(function() {
 		hideArea('ktsEmbedCodeArea');
@@ -42,7 +56,7 @@ function handleLayoutChange(elem, previewClass)
 	});	
 }
 
-function loadFlipperPreview(numItems, previewClass) 
+function loadFlipperImageLayout(numItems, previewClass) 
 {
 	var layoutRowsCols = {
 		"9": [3, 3],
@@ -130,8 +144,8 @@ function getFlipperParameters(previewClass)
 {
 	var param = {};
 	
-	param.title = document.getElementById('ktsFlipperTitle').value;
-	param.subtitle = document.getElementById('ktsFlipperSubtitle').value;
+	param.title = document.getElementById('ktsFlipperGeneratorTitle').value;
+	param.subtitle = document.getElementById('ktsFlipperGeneratorSubtitle').value;
 	
 	var flipperImages = [];
 	var imageElement = document.getElementsByClassName(previewClass);
@@ -193,6 +207,8 @@ function copyEmbedCodeToClipboard()
 
 function handleUploadFileSelect(evt)
 {
+	console.log('handleUploadFileSelect');
+	
 	var fileList = evt.target.files;
 	if (fileList.length < 1) {
 		console.log('no file selected');
@@ -243,8 +259,8 @@ function loadConfiguration(param)
 		return;
 	}
 	
-	document.getElementById('ktsFlipperTitle').value = param.title;
-	document.getElementById('ktsFlipperSubtitle').value = param.subtitle;
+	document.getElementById('ktsFlipperGeneratorTitle').value = param.title;
+	document.getElementById('ktsFlipperGeneratorSubtitle').value = param.subtitle;
 	
 	var layoutElement = document.getElementById(layoutElementId[nImages]);
 	layoutElement.click();

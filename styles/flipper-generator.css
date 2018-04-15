@@ -12,6 +12,15 @@
 	color: #557A95;
 }
 
+.kts-flipper-generator .kts-preview-button {
+	font-size: 10px;
+	font-weight: bold;
+	background-color: #557A95;
+	color: white;
+	border: 1px solid #557A95;
+	border-radius: 8px;
+}
+
 .kts-flipper-generator .kts-align-right {
 	text-align: right;
 }
