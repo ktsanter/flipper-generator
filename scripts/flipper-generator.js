@@ -1,6 +1,6 @@
 function initFlipperGenerator()
 {
-	var previewClass = 'kts-preview-button';
+	var previewClass = 'kts-preview-layout-button';
 	var elemDefaultLayout = document.getElementById('ktsFlipperLayout2');
 
 	elemDefaultLayout.checked = true;
@@ -23,20 +23,24 @@ function initFlipperGenerator()
 	$("#ktsUploadSelector").click(function() {
 		$("#ktsUploadFileName").click();
 	});
-	document.getElementById('ktsUploadFileName').addEventListener('change', handleFileSelect, false);
-	$("#ktsDownloadConfigFile").click(writeConfigurationFile);
+	document.getElementById('ktsUploadFileName').addEventListener('change', handleUploadFileSelect, false);
+	$("#ktsDownloadConfigFile").click(handleDownloadFileSelect);
+
+	$("#ktsShowPreviewButton").click(showPreviewWithCurrentLayout);
+	document.getElementById('ktsFlipperPreview').style.display = 'none';
+
+	$("#ktsClosePreviewButton").click(hidePreview);
 }
 
 function handleLayoutChange(elem, previewClass)
 {
-	document.getElementById('ktsFlipperPreview').innerHTML = loadFlipperPreview(elem.value, previewClass);
+	document.getElementById('ktsFlipperLayoutPreview').innerHTML = loadFlipperPreview(elem.value, previewClass);
 	
 	$("." + previewClass).click(function() {
 		hideArea('ktsEmbedCodeArea');
 		handleFlipperPreviewButtonClick(this);
 	});	
 }
-
 
 function loadFlipperPreview(numItems, previewClass) 
 {
@@ -83,7 +87,7 @@ function loadFlipperPreview(numItems, previewClass)
 function makeButtonId(num)
 {
 	var paddedNum = ("00" + num).slice(-2);
-	return 'btn' + paddedNum;
+	return 'btnGeneratorPreview' + paddedNum;
 }
 
 function handleFlipperPreviewButtonClick(elemButton)
@@ -187,7 +191,7 @@ function copyEmbedCodeToClipboard()
 	document.getElementById('ktsCopiedNotice').innerHTML = 'embed code copied to clipboard';
 }
 
-function handleFileSelect(evt)
+function handleUploadFileSelect(evt)
 {
 	var fileList = evt.target.files;
 	if (fileList.length < 1) {
@@ -196,10 +200,6 @@ function handleFileSelect(evt)
 	}
 	
 	var configFile = fileList[0];
-	if (!configFile.type.match('text.plain')) {
-		console.log('wrong file type: ' + configFile.type + '\nfile=' + configFile.name);
-		return;
-	}
 	if (configFile.size > 5000) {
 		console.log('file is too big: ' + configFile.size + '\nfile=' + configFile.name);
 		return;
@@ -256,16 +256,16 @@ function loadConfiguration(param)
 	}
 }
 
-function writeConfigurationFile()
+function handleDownloadFileSelect()
 {
-	var param = getFlipperParameters('kts-preview-button');
-	downloadFile('flipper_configuration.txt', JSON.stringify(param));
+	var param = getFlipperParameters('kts-preview-layout-button');
+	downloadFile('flipper_configuration.json', JSON.stringify(param));
 }
 
 
 function downloadFile(filename, data) 
 {
-    var blob = new Blob([data], {type: 'text/csv'});
+    var blob = new Blob([data], {type: 'application/json'});
     if(window.navigator.msSaveOrOpenBlob) {
         window.navigator.msSaveBlob(blob, filename);
     }
@@ -277,4 +277,33 @@ function downloadFile(filename, data)
         elem.click();        
         document.body.removeChild(elem);
     }
+}
+
+function showPreviewWithCurrentLayout()
+{
+	console.log('show preview');
+	document.getElementById('ktsMainFlipperGeneratorContainer').style.display = 'none';
+	document.getElementById('ktsFlipperPreview').style.display = '';
+
+	var ktsXHTTP = new XMLHttpRequest();
+	ktsXHTTP.onreadystatechange = function() {	
+		if (this.readyState == 4 && this.status == 200) {		
+			var scriptElement = document.createElement('script');		
+			scriptElement.innerHTML = ktsXHTTP.responseText;		
+			document.getElementById('ktsFlipperWrapper').parentElement.appendChild(scriptElement);	
+			var p2 = getFlipperParameters('kts-preview-layout-button');
+			console.log('parameters:');
+			console.log(JSON.stringify(p2));
+			ktsFlipperCode.prepareFlipper(p2);	
+		}
+	};
+	ktsXHTTP.open('GET', 'https://raw.githubusercontent.com/ktsanter/twentythings-generator/master/scripts/flipper.js', true);
+	ktsXHTTP.send();
+}
+
+function hidePreview()
+{
+	console.log('hide preview');
+	document.getElementById('ktsMainFlipperGeneratorContainer').style.display = '';
+	document.getElementById('ktsFlipperPreview').style.display = 'none';
 }

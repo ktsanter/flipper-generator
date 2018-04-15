@@ -149,7 +149,7 @@ var ktsFlipperCode = {
 			for (var i = 0; i < numItems; i++) {
 				if (i % cols == 0) s += '<tr>';
 				var paddedNum = ("00" + i).slice (-2);
-				var sid = ' id="btn' + paddedNum + '" ';
+				var sid = ' id="ktsFlipperButton' + paddedNum + '" ';
 				var sclass = ' class="kts-flipper-card-button" ';
 				var text = '#' + (i+1);
 				

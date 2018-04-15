@@ -1,1 +1,0 @@
-{"title":"a title","xsubtitle":"a super interesting subtitle","images":["Slide1.png","","","","","","","",""]}
