@@ -29,6 +29,14 @@ function initFlipperGenerator()
 	document.getElementById('ktsFlipperPreview').style.display = 'none';
 
 	$("#ktsClosePreviewButton").click(hidePreview);
+	
+	document.getElementById('ktsColorSchemeSample000').classList.remove('kts-dont-show');
+	$(".kts-flipper-generator-colorscheme").click(function() {
+		handleColorSchemeClick(this);
+	});
+	document.getElementById("ktsColorSchemeContainer").addEventListener("mouseleave", function() {
+		handleColorSchemeMouseLeave(this);
+	});
 }
 
 function triggerConfigFileUpload()
@@ -146,6 +154,7 @@ function getFlipperParameters(previewClass)
 	
 	param.title = document.getElementById('ktsFlipperGeneratorTitle').value;
 	param.subtitle = document.getElementById('ktsFlipperGeneratorSubtitle').value;
+	param.colorscheme = getColorScheme();
 	
 	var flipperImages = [];
 	var imageElement = document.getElementsByClassName(previewClass);
@@ -153,7 +162,8 @@ function getFlipperParameters(previewClass)
 		flipperImages[i] = imageElement[i].value;
 	}
 	param.images = flipperImages;
-	
+	console.log(param);
+
 	return param;
 }
 
@@ -207,8 +217,6 @@ function copyEmbedCodeToClipboard()
 
 function handleUploadFileSelect(evt)
 {
-	console.log('handleUploadFileSelect');
-	
 	var fileList = evt.target.files;
 	if (fileList.length < 1) {
 		console.log('no file selected');
@@ -228,10 +236,12 @@ function handleUploadFileSelect(evt)
 			var param;
 			try {
 				param = JSON.parse(e.target.result);
-				loadConfiguration(param);
 			} catch(e) {
 				console.log('not a valid configuration file - unable to parse as JSON');
+				console.log(e);
+				return;
 			}
+			loadConfiguration(param);
 		};
 	})(configFile);
 
@@ -261,6 +271,7 @@ function loadConfiguration(param)
 	
 	document.getElementById('ktsFlipperGeneratorTitle').value = param.title;
 	document.getElementById('ktsFlipperGeneratorSubtitle').value = param.subtitle;
+	setColorScheme(param.colorscheme);
 	
 	var layoutElement = document.getElementById(layoutElementId[nImages]);
 	layoutElement.click();
@@ -318,4 +329,49 @@ function hidePreview()
 {
 	document.getElementById('ktsMainFlipperGeneratorContainer').style.display = '';
 	document.getElementById('ktsFlipperPreview').style.display = 'none';
+}
+
+function handleColorSchemeClick(elem)
+{
+	var elemContent = document.getElementById('ktsColorSchemeContent');
+	
+	if (elem.id.includes('Sample')) {
+		elemContent.style.display = 'block';
+		
+	} else {
+		elemContent.style.display = 'none';
+		setColorScheme(elem.id.slice(-3) * 1);
+	}
+}
+
+function handleColorSchemeMouseLeave(elem)
+{
+	document.getElementById('ktsColorSchemeContent').style.display = 'none';
+}
+
+function getColorScheme()
+{
+	var schemeNum = 0;
+	
+	var elemSamples = document.getElementsByClassName('kts-flipper-color-sample');
+	for (var i = 0; i < elemSamples.length; i++) {
+		var clist = elemSamples[i].classList;
+		if (!clist.contains('kts-dont-show')) {
+			schemeNum = i;
+		}
+	}
+	console.log('color scheme=' + schemeNum);
+	return schemeNum;
+}
+
+function setColorScheme(schemeNum)
+{
+	var schemeString = ("000" + schemeNum).slice(-3);
+
+	var elemSamples = document.getElementsByClassName('kts-flipper-color-sample');
+	for (var i = 0; i < elemSamples.length; i++) {
+		elemSamples[i].classList.add('kts-dont-show');
+	}
+
+	document.getElementById('ktsColorSchemeSample' + schemeString).classList.remove('kts-dont-show');
 }

@@ -88,3 +88,65 @@
     width: 100%; /* Full width (cover the whole page) */
     height: 100%; /* Full height (cover the whole page) */
 }
+
+.kts-flipper-generator-colorscheme-000 {
+	--kts-fpg-preview-color1: black;  /* border and subtitle text */
+	--kts-fpg-preview-color2: #135F6F; /* nominal background */
+	--kts-fpg-preview-color3: white;  /* nominal foreground */
+}
+
+.kts-flipper-generator-colorscheme-001 {
+	--kts-fpg-preview-color1: black;  
+	--kts-fpg-preview-color2: white;  
+	--kts-fpg-preview-color3: #135F6F;
+}
+
+.kts-flipper-generator-colorscheme-002 {
+	--kts-fpg-preview-color1: black;
+	--kts-fpg-preview-color2: #3474db;
+	--kts-fpg-preview-color3: white;
+}
+
+.kts-flipper-generator-colorscheme-003 {
+	--kts-fpg-preview-color1: black;
+	--kts-fpg-preview-color2: white;
+	--kts-fpg-preview-color3: #3474db;
+}
+
+.kts-flipper-generator-colorscheme-004 {
+	--kts-fpg-preview-color1: black;
+	--kts-fpg-preview-color2: #abb7cc;
+	--kts-fpg-preview-color3: white; 
+}
+
+.kts-flipper-generator-colorscheme-005 {
+	--kts-fpg-preview-color1: black;
+	--kts-fpg-preview-color2: white; 
+	--kts-fpg-preview-color3: #abb7cc;
+}
+
+.kts-flipper-generator-colorscheme {
+	color: var(--kts-fpg-preview-color3);
+	background-color: var(--kts-fpg-preview-color2);
+	border: 1px solid var(--kts-fpg-preview-color1);
+}
+
+.kts-flipper-color-sample {
+	padding: 8px 8px 8px 8px;
+}
+
+.kts-flipper-generator-dropdown {
+    position: relative;
+    display: inline-block;
+}
+
+.kts-flipper-generator-dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #f9f9f9;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    padding: 8px 8px;
+    z-index: 1;
+	font-size: 16px;
+}

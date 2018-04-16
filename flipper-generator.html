@@ -25,6 +25,39 @@
 						</tr>
 						
 						<tr>
+							<td> color </td>
+							<td>
+							<!--
+								<select id='ktsFlipperGeneratorColorScheme' class='kts-font kts-font-style3 kts-hide-embed'>
+									<option value="0"> Michigan Virtual dark green / white</option>
+									<option value="1"> Michigan Virtual dark green / white - inverted </option>
+									<option value="2"> blue / white </option>
+									<option value="3"> blue / white - inverted </option>
+									<option value="4"> gray / white </option>
+									<option value="5"> gray / white - inverted </option>
+								</select>
+							-->
+								<div id='ktsColorSchemeContainer' class="kts-flipper-generator-dropdown kts-hide-embed">
+									<div id='ktsColorSchemeSample000' class='kts-flipper-color-sample kts-flipper-generator-colorscheme kts-flipper-generator-colorscheme-000 kts-dont-show'> sample text</div>
+									<div id='ktsColorSchemeSample001' class='kts-flipper-color-sample kts-flipper-generator-colorscheme kts-flipper-generator-colorscheme-001 kts-dont-show'> sample text</div>
+									<div id='ktsColorSchemeSample002' class='kts-flipper-color-sample kts-flipper-generator-colorscheme kts-flipper-generator-colorscheme-002 kts-dont-show'> sample text</div>
+									<div id='ktsColorSchemeSample003' class='kts-flipper-color-sample kts-flipper-generator-colorscheme kts-flipper-generator-colorscheme-003 kts-dont-show'> sample text</div>
+									<div id='ktsColorSchemeSample004' class='kts-flipper-color-sample kts-flipper-generator-colorscheme kts-flipper-generator-colorscheme-004 kts-dont-show'> sample text</div>
+									<div id='ktsColorSchemeSample005' class='kts-flipper-color-sample kts-flipper-generator-colorscheme kts-flipper-generator-colorscheme-005 kts-dont-show'> sample text</div>
+
+									<div id='ktsColorSchemeContent' class="kts-flipper-generator-dropdown-content">
+										<div id='ktsColorSchemeOption000' class='kts-flipper-generator-colorscheme kts-flipper-generator-colorscheme-000'> sample text</div>
+										<div id='ktsColorSchemeOption001' class='kts-flipper-generator-colorscheme kts-flipper-generator-colorscheme-001'> sample text</div>
+										<div id='ktsColorSchemeOption002' class='kts-flipper-generator-colorscheme kts-flipper-generator-colorscheme-002'> sample text</div>
+										<div id='ktsColorSchemeOption003' class='kts-flipper-generator-colorscheme kts-flipper-generator-colorscheme-003'> sample text</div>
+										<div id='ktsColorSchemeOption004' class='kts-flipper-generator-colorscheme kts-flipper-generator-colorscheme-004'> sample text</div>
+										<div id='ktsColorSchemeOption005' class='kts-flipper-generator-colorscheme kts-flipper-generator-colorscheme-005'> sample text</div>
+									</div>
+								</div>
+							</td>
+						</tr>
+						
+						<tr>
 							<td> layout </td>
 							<td>
 								<input id='ktsFlipperLayout0' class='kts-layout-button kts-hide-embed' type="radio" name="ktsFlipperLayout" value="9"> 3 x 3 <br>
@@ -74,8 +107,7 @@
 		<div id='ktsFlipperWrapper' class='kts-flipper'> loading...	</div>
 		<span id='ktsCountdownContent'> ... </span>
 	</div>
-	
-	
+		
 	<script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js'></script>
 	<script src="scripts/flipper-generator.js"> </script>
 	<script> initFlipperGenerator(); </script>
