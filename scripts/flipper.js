@@ -121,8 +121,8 @@ var ktsFlipperCode = {
 
 	"loadDescription": function()
 		{  
-			document.getElementById('ktsFlipperTitle').innerHTML = this.param.title;
-			document.getElementById('ktsFlipperSubtitle').innerHTML = this.param.subtitle;
+			document.getElementById('ktsFlipperTitle').textContent = this.param.title;
+			document.getElementById('ktsFlipperSubtitle').textContent = this.param.subtitle;
 		},
 
 	"loadMainCard": function()
