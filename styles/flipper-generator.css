@@ -26,7 +26,7 @@
 }
 
 .kts-flipper-generator .kts-control-button {
-	font-size: 10px;
+	font-size: 12px;
 	font-weight: bold;
 	background-color: var(--kts-fpg-color3);
 	color: var(--kts-fpg-color1);

@@ -1,5 +1,4 @@
 - finish embed code
 - sanitize user input
 - sizing tips and control
-- eliminate JQuery?
 - console.log -> alerts
