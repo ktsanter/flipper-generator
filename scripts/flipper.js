@@ -74,8 +74,6 @@ var ktsFlipperCode = {
 
 	"loadParameters": function(inputParameters) 
 		{
-			console.log("input parameters:");
-			console.log(JSON.stringify(inputParameters));
 			this.param.title = inputParameters.title;
 			this.param.subtitle = inputParameters.subtitle;
 			this.param.colorscheme = inputParameters.colorscheme;

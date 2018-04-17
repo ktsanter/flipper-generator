@@ -177,7 +177,6 @@ function getFlipperParameters(previewClass)
 		flipperImages[i] = imageElement[i].value;
 	}
 	param.images = flipperImages;
-	console.log(param);
 
 	return param;
 }
