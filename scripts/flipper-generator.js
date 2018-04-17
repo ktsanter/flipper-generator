@@ -233,7 +233,6 @@ function handleUploadFileSelect(evt)
 {
 	var fileList = evt.target.files;
 	if (fileList.length < 1) {
-		console.log('no file selected');
 		return;
 	}
 	
@@ -374,7 +373,7 @@ function getColorScheme()
 			schemeNum = i;
 		}
 	}
-	console.log('color scheme=' + schemeNum);
+
 	return schemeNum;
 }
 
