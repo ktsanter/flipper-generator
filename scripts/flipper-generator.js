@@ -335,7 +335,7 @@ function showPreviewWithCurrentLayout()
 			ktsFlipperCode.prepareFlipper(p2);	
 		}
 	};
-	ktsXHTTP.open('GET', 'https://raw.githubusercontent.com/ktsanter/twentythings-generator/master/scripts/flipper.js', true);
+	ktsXHTTP.open('GET', 'https://raw.githubusercontent.com/ktsanter/flipper-generator/master/scripts/flipper.js', true);
 	ktsXHTTP.send();
 }
 
