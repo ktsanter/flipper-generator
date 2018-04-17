@@ -164,6 +164,7 @@ var ktsFlipperCode = {
 			var layout = layoutRowsCols[numItems];
 			if (layout == null) {
 				console.log("no layout for this number of items: " + numItems);
+				alert('internal error - no layout for this number of items: ' + numItems);
 				return;
 			}
 			

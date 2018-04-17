@@ -91,6 +91,7 @@ function loadFlipperImageLayout(numItems, previewClass)
 	var layout = layoutRowsCols[numItems];
 	if (layout == null) {
 		console.log("no layout for this number of items: " + numItems);
+		alert("internal error - no layout for this number of items: " + numItems);
 		return;
 	}
 	
@@ -239,6 +240,7 @@ function handleUploadFileSelect(evt)
 	var configFile = fileList[0];
 	if (configFile.size > 5000) {
 		console.log('file is too big: ' + configFile.size + '\nfile=' + configFile.name);
+		alert('file is too big: ' + configFile.size + '\nfile=' + configFile.name);
 		return;
 	}
 	
@@ -252,6 +254,7 @@ function handleUploadFileSelect(evt)
 			} catch(e) {
 				console.log('not a valid configuration file - unable to parse as JSON');
 				console.log(e);
+				alert('not a valid configuration file - unable to parse as JSON' + '\n' + console.log(e));
 				return;
 			}
 			loadConfiguration(param);
@@ -265,6 +268,7 @@ function loadConfiguration(param)
 {
 	if (!('title' in param) || !('subtitle' in param) || !('images' in param)) {
 		console.log('not a valid configuration file - missing one or more elements');
+		alert('not a valid configuration file - missing one or more elements');
 		return;
 	}
 	
@@ -279,6 +283,7 @@ function loadConfiguration(param)
 
 	if (!(nImages in layoutElementId)) {
 		console.log('not a valid number of images: ' + nImages);
+		alert('not a valid number of images: ' + nImages);
 		return;
 	}
 	
