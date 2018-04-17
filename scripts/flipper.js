@@ -99,7 +99,7 @@ var ktsFlipperCode = {
 					ktsFlipperCode.loadHTML();
 					ktsFlipperCode.loadDescription();
 					ktsFlipperCode.loadMainCard();
-					$("#ktsFlipperResetButton").click(ktsFlipperCode.handleReset);
+					document.getElementById('ktsFlipperResetButton').addEventListener('click', ktsFlipperCode.handleReset);
 				}
 			};
 			xhttp.open("GET", ktsFlipperStyleSheet, true);
@@ -110,42 +110,48 @@ var ktsFlipperCode = {
 			ktsFlipperCode.loadHTML();
 			ktsFlipperCode.loadDescription();
 			ktsFlipperCode.loadMainCard();
-			$("#ktsFlipperResetButton").click(ktsFlipperCode.handleReset);
+			document.getElementById('ktsFlipperResetButton').addEventListener('click', ktsFlipperCode.handleReset);
 			---- end of local -----*/
 		},
 	
 	"loadHTML": function()
 		{
-			$("#" + this.param.mainContentId).html(this.baseHTML);
+			document.getElementById(this.param.mainContentId).innerHTML = this.baseHTML;
 			var wrapper = document.getElementById('ktsFlipperWrapper');
 			wrapper.classList.add(this.colorSchemeClasses[this.param.colorscheme]);
 		},
 
 	"loadDescription": function()
 		{  
-			$("#ktsFlipperTitle").html(this.param.title);
-			$("#ktsFlipperSubtitle").html(this.param.subtitle);
+			document.getElementById('ktsFlipperTitle').innerHTML = this.param.title;
+			document.getElementById('ktsFlipperSubtitle').innerHTML = this.param.subtitle;
 		},
 
 	"loadMainCard": function()
 		{
-			var cardSelector = '#' + this.param.mainCardId;
 			var numItems = this.getNumCards();
 			var s = '';
 
 			s += this.loadFrontOfCard(numItems);
 			s += this.loadBackOfCard(numItems);
 
-			$(cardSelector).html(s);
+			document.getElementById(this.param.mainCardId).innerHTML = s;
 
-			$(".kts-flipper-card-button").click(function() {
-				ktsFlipperCode.flip(ktsFlipperCode.param.mainCardId, this.id);
-			});
+			var cardButtons = document.getElementsByClassName('kts-flipper-card-button');
+			for (var i = 0; i < cardButtons.length; i++) {
+				cardButtons[i].addEventListener('click', function() {
+					ktsFlipperCode.flip(ktsFlipperCode.param.mainCardId, this.id);
+				});
+			}
 
-			$(".back").css("visibility","hidden");
-			$(".back").click(function() {
-				ktsFlipperCode.unflip();
-			});
+			var cardBacks = document.getElementsByClassName('back');
+			for (var i = 0; i < cardBacks.length; i++) {
+				var back = cardBacks[i];
+				back.style.visiblity = 'hidden';
+				back.addEventListener('click', function () {
+					ktsFlipperCode.unflip();
+				});
+			}
 		},
 
 	"loadFrontOfCard": function(numItems) 
@@ -208,33 +214,46 @@ var ktsFlipperCode = {
 
 	"flip": function(id1, id2) 
 		{
-			var selector1 = '#' + id1;
-			var selector2 = '#back' + id2.substring(id2.length-2);
-			var selector3 = '#' + id2;
-			  
-			$(".back").css("visibility","hidden");
-			$(selector2).css("visibility","visible");
-			$(selector1).toggleClass('flipped');
-			$(selector3).css("visibility","hidden");
+			var cardBacks = document.getElementsByClassName('back');
+			for (var i = 0; i < cardBacks.length; i++) {
+				cardBacks[i].style.visibility = 'hidden';
+			}
+			document.getElementById('back' + id2.substring(id2.length-2)).style.visibility = 'visible';
+
+			ktsFlipperCode.toggleClass(document.getElementById(id1), 'flipped');
+			document.getElementById(id2).style.visibility = 'hidden';
 		},
 
 	"unflip": function() 
 		{
-			var selector = '#' + ktsFlipperCode.param.mainCardId;
-			$(selector).toggleClass('flipped');
+			ktsFlipperCode.toggleClass(document.getElementById(ktsFlipperCode.param.mainCardId), 'flipped');
 		},
  
 	"handleReset": function() 
 		{
-			var selector = '#' + ktsFlipperCode.param.mainCardId;
-			$(".kts-flipper-card-button").css("visibility","visible");
-			if ($(selector).hasClass("flipped")) {
-				$(selector).removeClass("flipped");
+			var cardButtons = document.getElementsByClassName('kts-flipper-card-button');
+			for (var i = 0; i < cardButtons.length; i++) {
+				cardButtons[i].style.visibility = 'visible';
+			}
+
+			var clist = document.getElementById(ktsFlipperCode.param.mainCardId).classList;
+			if (clist.contains('flipped')) {
+				clist.remove('flipped');
 			}
 		},	
  
 	"getNumCards": function() 
 		{
 			return this.param.images.length;
+		},
+		
+	"toggleClass": function(elem, className)
+		{
+			var clist = elem.classList;
+			if (clist.contains(className)) {
+				clist.remove(className);
+			} else {
+				clist.add(className);
+			}
 		}
 };
