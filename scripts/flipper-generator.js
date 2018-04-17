@@ -5,35 +5,47 @@ function initFlipperGenerator()
 
 	elemDefaultLayout.checked = true;
 	handleLayoutChange(elemDefaultLayout, previewClass);
+	
+	var layoutButtons = document.getElementsByClassName('kts-layout-button');
+	for (var i = 0; i < layoutButtons.length; i++) {
+		layoutButtons[i].addEventListener('change', function() {
+			handleLayoutChange(this, previewClass);
+		});
+	}
+	
+	document.getElementById('ktsGenerateButton').addEventListener('click', function() {
+		displayFlipperEmbedCode(previewClass);
+	});
+	
+	
+	var embedHideElements = document.getElementsByClassName('kts-hide-embed');
+	for (var i = 0; i < embedHideElements.length; i++) {
+		embedHideElements[i].addEventListener('click', function() {
+			hideArea('ktsEmbedCodeArea');
+		})
+	}
+	
+	document.getElementById('ktsCopyToClipboardButton').addEventListener('click', copyEmbedCodeToClipboard);
 
-	$(".kts-layout-button").change(function() {
-		handleLayoutChange(this, previewClass);
-	});
-	
-	$("#ktsGenerateButton").click(function() {
-		displayFlipperEmbedCode(previewClass)
-	});
-	
-	$(".kts-hide-embed").click(function() {
-		hideArea('ktsEmbedCodeArea');
-	});
-	
-	$("#ktsCopyToClipboardButton").click(copyEmbedCodeToClipboard);
-
-	$("#ktsUploadSelector").click(triggerConfigFileUpload);
+	document.getElementById('ktsUploadSelector').addEventListener('click', triggerConfigFileUpload);
 	document.getElementById('ktsUploadFileName').addEventListener('change', handleUploadFileSelect, false);
 	
-	$("#ktsDownloadConfigFile").click(handleDownloadFileSelect);
+	document.getElementById('ktsDownloadConfigFile').addEventListener('click', handleDownloadFileSelect);
 
-	$("#ktsShowPreviewButton").click(showPreviewWithCurrentLayout);
+	document.getElementById('ktsShowPreviewButton').addEventListener('click', showPreviewWithCurrentLayout);
 	document.getElementById('ktsFlipperPreview').style.display = 'none';
 
-	$("#ktsClosePreviewButton").click(hidePreview);
+	document.getElementById('ktsClosePreviewButton').addEventListener('click', hidePreview);
 	
 	document.getElementById('ktsColorSchemeSample000').classList.remove('kts-dont-show');
-	$(".kts-flipper-generator-colorscheme").click(function() {
-		handleColorSchemeClick(this);
-	});
+	
+	var schemes = document.getElementsByClassName('kts-flipper-generator-colorscheme');
+	for (var i = 0; i < schemes.length; i++) {
+		schemes[i].addEventListener('click', function() {
+			handleColorSchemeClick(this);
+			});
+	}
+
 	document.getElementById("ktsColorSchemeContainer").addEventListener("mouseleave", function() {
 		handleColorSchemeMouseLeave(this);
 	});
@@ -58,10 +70,13 @@ function handleLayoutChange(elem, previewClass)
 {
 	document.getElementById('ktsFlipperLayoutPreview').innerHTML = loadFlipperImageLayout(elem.value, previewClass);
 	
-	$("." + previewClass).click(function() {
-		hideArea('ktsEmbedCodeArea');
-		handleFlipperPreviewButtonClick(this);
-	});	
+	var previewElems = document.getElementsByClassName(previewClass);
+	for (var i = 0; i < previewElems.length; i++) {
+		previewElems[i].addEventListener('click', function() {
+			hideArea('ktsEmbedCodeArea');
+			handleFlipperPreviewButtonClick(this);
+		})
+	}
 }
 
 function loadFlipperImageLayout(numItems, previewClass) 
