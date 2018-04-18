@@ -185,10 +185,8 @@ function getFlipperParameters(previewClass)
 function generateFlipperEmbedCode(param)
 {
 	var sHTML = ""
-		+ "embed code";
-	/*
 		+ "<span>"
-		+ "  <span id='ktsCountdownContent'> ... </span>"
+		+ "  <span id='ktsFlipperWrapper' class='kts-flipper'> loading... </span>"
 		+ "</span>"
 		+ "<script>"
 		+ "var ktsXHTTP = new XMLHttpRequest();"
@@ -196,15 +194,15 @@ function generateFlipperEmbedCode(param)
 		+ "if (this.readyState == 4 && this.status == 200) {"
 		+ "	   var scriptElement = document.createElement('script');"
 		+ "    scriptElement.innerHTML = ktsXHTTP.responseText;"
-		+ "	   document.getElementById('ktsCountdownContent').parentElement.appendChild(scriptElement);"
-		+ "	   ktsCountdownCode.ktsCreateCountdownTimer(" + JSON.stringify(param) + ");"
+		+ "	   document.getElementById('ktsFlipperWrapper').parentElement.appendChild(scriptElement);"
+		+ "	   ktsFlipperCode.prepareFlipper(" + JSON.stringify(param) + ");"
 		+ "	}"
 		+ "};"
-		+ "ktsXHTTP.open('GET', 'https://raw.githubusercontent.com/ktsanter/countdown-generator/master/scripts/cd_generated.js', true);"
+		+ "ktsXHTTP.open('GET', 'https://raw.githubusercontent.com/ktsanter/flipper-generator/master/scripts/flipper.js', true);"
 		+ "ktsXHTTP.send();"
 		+ "</script>";
-*/		
-	return JSON.stringify(param);
+		
+	return sHTML;
 }
 
 function showArea(elemId)
