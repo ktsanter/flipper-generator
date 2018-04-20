@@ -51,7 +51,7 @@ var ktsFlipperCode = {
 		+'					ktsFlipperCode.prepareFlipper("***input_parameters***");'
 		+'				}'
 		+'			};'
-		+'
+		
 		+'			ktsXHTTP.open("GET", "https://raw.githubusercontent.com/ktsanter/flipper-generator/master/scripts/flipper.js", true);'
 		+'			ktsXHTTP.send();'
 		+'		</script>'
