@@ -9,7 +9,7 @@ var ktsFlipperCode = {
 	},
 
 	"baseHTML": ""
-		+ "<table class='kts-main-container'>"
+		+ "poop<table class='kts-main-container'>"
 		+ "<tr>"
 		+ "<td>"
 		+ "	<table class='kts-flipper-table-title'>"
@@ -35,7 +35,6 @@ var ktsFlipperCode = {
 		
 	"iframeHTMLContent": ''
 		+'	<head>'
-		//+'		<link rel="stylesheet" href="styles/flipper.css" type="text/css" />'
 		+'	</head>'
 			
 		+'	<body>'
@@ -43,8 +42,6 @@ var ktsFlipperCode = {
 		+'			<span id="ktsFlipperWrapper" class="kts-flipper"> loading... </span>'
 		+'		</span>'
 
-		+'		<script src="scripts/flipper.js"> </script>'
-				
 		+'		<script>'
 		+'			ktsFlipperCode.prepareFlipper(***input_parameters***);	'
 		+'		</script>'
