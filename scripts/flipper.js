@@ -43,7 +43,17 @@ var ktsFlipperCode = {
 		+'		</span>'
 
 		+'		<script>'
-		+'			ktsFlipperCode.prepareFlipper(***input_parameters***);	'
+		+'			var ktsXHTTP = new XMLHttpRequest();ktsXHTTP.onreadystatechange = function() {'
+		+'				if (this.readyState == 4 && this.status == 200) {'
+		+'					var scriptElement = document.createElement('script');'
+		+'					scriptElement.innerHTML = ktsXHTTP.responseText;' 
+		+'					document.getElementById('ktsFlipperIframeWrapper').parentElement.appendChild(scriptElement);'
+		+'					ktsFlipperCode.prepareFlipper('***input_parameters***');'
+		+'				}'
+		+'			};'
+		+'
+		+'			ktsXHTTP.open("GET", "https://raw.githubusercontent.com/ktsanter/flipper-generator/master/scripts/flipper.js", true);'
+		+'			ktsXHTTP.send();'
 		+'		</script>'
 		+'	</body>'
 		+'	</html>',
