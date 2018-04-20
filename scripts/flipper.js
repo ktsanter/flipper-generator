@@ -1,6 +1,6 @@
 var ktsFlipperCode = {
 	"param": {
-		"mainContentId": "ktsFlipperWrapper",
+		"mainContentId": null,
 		"mainCardId": "ktsFlipperMainCard",
 	
 		"images":  [],
@@ -74,6 +74,7 @@ var ktsFlipperCode = {
 
 	"loadParameters": function(inputParameters) 
 		{
+			this.param.mainContentId = inputParameters.contentwrapper;
 			this.param.title = inputParameters.title;
 			this.param.subtitle = inputParameters.subtitle;
 			this.param.colorscheme = inputParameters.colorscheme;
@@ -114,8 +115,8 @@ var ktsFlipperCode = {
 	
 	"loadHTML": function()
 		{
-			document.getElementById(this.param.mainContentId).innerHTML = this.baseHTML;
-			var wrapper = document.getElementById('ktsFlipperWrapper');
+			var wrapper = document.getElementById(this.param.mainContentId);
+			wrapper.innerHTML = this.baseHTML;
 			wrapper.classList.add(this.colorSchemeClasses[this.param.colorscheme]);
 		},
 
