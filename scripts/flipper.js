@@ -68,6 +68,7 @@ var ktsFlipperCode = {
 		],
 
 	"prepareFlipperIframe": function(elemWrapperId, inputParameters) {
+			console.log('begin prepareFlipperIframe');
 			var html = this.iframeHTMLContent;
 			html = html.replace('***input_parameters***', JSON.stringify(inputParameters));
 			var iframe = document.createElement('iframe');
@@ -78,10 +79,12 @@ var ktsFlipperCode = {
 			var iframeWrapper = document.getElementById(elemWrapperId);
 			iframeWrapper.innerHTML = "";
 			iframeWrapper.appendChild(iframe);
+			console.log('end prepareFlipperIframe');
 	},
 		
 	"prepareFlipper": function(inputParameters)
 		{
+			console.log('begin prepareFlipper');
 			this.loadParameters(inputParameters);
 			this.loadFlipperCSS();
 		},
@@ -95,6 +98,7 @@ var ktsFlipperCode = {
 			for (var i = 0; i < inputParameters.images.length; i++) {
 				this.param.images[i] = inputParameters.images[i];
 			}
+			console.log('end loadParameters');
 		},
 	
 	"loadFlipperCSS": function()
@@ -105,6 +109,7 @@ var ktsFlipperCode = {
 			
 			xhttp.onreadystatechange = function() {
 				if (this.readyState == 4 && this.status == 200) {
+					csonsole.log('success loadFlipperCSS');
 					var styleElement = document.createElement('style');
 					styleElement.innerHTML = xhttp.responseText;
 					document.head.appendChild(styleElement);
@@ -129,15 +134,19 @@ var ktsFlipperCode = {
 	
 	"loadHTML": function()
 		{
+			console.log('begin loadHTML');
 			var wrapper = document.getElementById(this.param.mainContentId);
 			wrapper.innerHTML = this.baseHTML;
 			wrapper.classList.add(this.colorSchemeClasses[this.param.colorscheme]);
+			console.log('end loadHTML');
 		},
 
 	"loadDescription": function()
 		{  
+			console.log('begin loadDescription');
 			document.getElementById('ktsFlipperTitle').textContent = this.param.title;
 			document.getElementById('ktsFlipperSubtitle').textContent = this.param.subtitle;
+			console.log('end loadDescription');
 		},
 
 	"loadMainCard": function()
