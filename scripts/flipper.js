@@ -9,7 +9,7 @@ var ktsFlipperCode = {
 	},
 
 	"baseHTML": ""
-		+ "poop<table class='kts-main-container'>"
+		+ "<table class='kts-main-container'>"
 		+ "<tr>"
 		+ "<td>"
 		+ "	<table class='kts-flipper-table-title'>"
@@ -92,10 +92,9 @@ var ktsFlipperCode = {
 			/*---- non-local ----*/
 			var ktsFlipperStyleSheet = 'https://raw.githubusercontent.com/ktsanter/flipper-generator/master/styles/flipper.css';
 			var xhttp = new XMLHttpRequest();
-			console.log('trying to load flipper.css...');
+			
 			xhttp.onreadystatechange = function() {
 				if (this.readyState == 4 && this.status == 200) {
-					console.log('success');
 					var styleElement = document.createElement('style');
 					styleElement.innerHTML = xhttp.responseText;
 					document.head.appendChild(styleElement);
