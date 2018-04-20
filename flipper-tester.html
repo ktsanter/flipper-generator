@@ -18,7 +18,7 @@
 			if (this.readyState == 4 && this.status == 200) {	   
 				var scriptElement = document.createElement('script');    
 				scriptElement.innerHTML = ktsXHTTP.responseText;	   
-				document.getElementById('ktsFlipperWrapper').parentElement.appendChild(scriptElement);	   
+				document.getElementById('ktsFlipperIframeWrapper').parentElement.appendChild(scriptElement);	   
 				ktsFlipperCode.prepareFlipperIframe('ktsFlipperIframeWrapper', {
 					"title":"20 Things About Me",
 					"subtitle":"Here are 20 things about me you might find interesting.",

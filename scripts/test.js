@@ -30,7 +30,7 @@ var param = {
 
 var iframeHTMLContent = ''
 	+'	<head>'
-	+'		<link rel="stylesheet" href="styles/flipper.css" type="text/css" />'
+	//+'		<link rel="stylesheet" href="styles/flipper.css" type="text/css" />'
 	+'	</head>'
 		
 	+'	<body>'
