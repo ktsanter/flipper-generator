@@ -109,7 +109,7 @@ var ktsFlipperCode = {
 			
 			xhttp.onreadystatechange = function() {
 				if (this.readyState == 4 && this.status == 200) {
-					csonsole.log('success loadFlipperCSS');
+					console.log('success loadFlipperCSS');
 					var styleElement = document.createElement('style');
 					styleElement.innerHTML = xhttp.responseText;
 					document.head.appendChild(styleElement);
