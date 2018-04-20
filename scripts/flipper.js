@@ -48,7 +48,7 @@ var ktsFlipperCode = {
 		+'					var scriptElement = document.createElement("script");'
 		+'					scriptElement.innerHTML = ktsXHTTP.responseText;' 
 		+'					document.getElementById("ktsFlipperIframeWrapper").parentElement.appendChild(scriptElement);'
-		+'					ktsFlipperCode.prepareFlipper("***input_parameters***");'
+		+'					ktsFlipperCode.prepareFlipper(***input_parameters***);'
 		+'				}'
 		+'			};'
 		
