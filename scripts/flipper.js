@@ -47,7 +47,7 @@ var ktsFlipperCode = {
 		+'				if (this.readyState == 4 && this.status == 200) {'
 		+'					var scriptElement = document.createElement("script");'
 		+'					scriptElement.innerHTML = ktsXHTTP.responseText;' 
-		+'					document.getElementById("ktsFlipperIframeWrapper").parentElement.appendChild(scriptElement);'
+		+'					document.getElementById("ktsFlipperWrapper").parentElement.appendChild(scriptElement);'
 		+'					ktsFlipperCode.prepareFlipper(***input_parameters***);'
 		+'				}'
 		+'			};'
