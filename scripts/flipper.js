@@ -86,7 +86,7 @@ var ktsFlipperCode = {
 	"loadFlipperCSS": function ()
 		{
 			/*---- non-local ----*/
-			var ktsFlipperStyleSheet = 'https://raw.githubusercontent.com/ktsanter/twentythings-generator/master/styles/flipper.css';
+			var ktsFlipperStyleSheet = 'https://raw.githubusercontent.com/ktsanter/flipper-generator/master/styles/flipper.css';
 			var xhttp = new XMLHttpRequest();
 			xhttp.onreadystatechange = function() {
 				if (this.readyState == 4 && this.status == 200) {
