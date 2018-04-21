@@ -17,7 +17,7 @@
 }
 
 .kts-flipper-generator .kts-preview-close-button {
-	font-size: 10px;
+	font-size: 12px;
 	font-weight: bold;
 	background-color: var(--kts-fpg-color1);
 	color: var(--kts-fpg-color3); 

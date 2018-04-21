@@ -179,25 +179,6 @@ function getFlipperParameters(previewClass)
 
 function generateFlipperEmbedCode(param)
 {
-/*
-	var sHTML = ""
-		+ "<span>"
-		+ "  <span id='ktsFlipperWrapper' class='kts-flipper'> loading... </span>"
-		+ "</span>"
-		+ "<script>"
-		+ "var ktsXHTTP = new XMLHttpRequest();"
-		+ "ktsXHTTP.onreadystatechange = function() {"
-		+ "if (this.readyState == 4 && this.status == 200) {"
-		+ "	   var scriptElement = document.createElement('script');"
-		+ "    scriptElement.innerHTML = ktsXHTTP.responseText;"
-		+ "	   document.getElementById('ktsFlipperWrapper').parentElement.appendChild(scriptElement);"
-		+ "	   ktsFlipperCode.prepareFlipper(" + JSON.stringify(param) + ");"
-		+ "	}"
-		+ "};"
-		+ "ktsXHTTP.open('GET', 'https://raw.githubusercontent.com/ktsanter/flipper-generator/master/scripts/flipper.js', true);"
-		+ "ktsXHTTP.send();"
-		+ "</script>";
-*/		
 	var sHTML = "<span id='ktsFlipperIframeWrapper'> loading iframe... </span>"
 		+ "<script>"
 		+ "var ktsXHTTP = new XMLHttpRequest();ktsXHTTP.onreadystatechange = function() {"
