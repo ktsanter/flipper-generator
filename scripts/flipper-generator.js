@@ -26,17 +26,12 @@ function initFlipperGenerator()
 	}
 	
 	document.getElementById('ktsCopyToClipboardButton').addEventListener('click', copyEmbedCodeToClipboard);
-
 	document.getElementById('ktsUploadSelector').addEventListener('click', triggerConfigFileUpload);
 	document.getElementById('ktsUploadFileName').addEventListener('change', handleUploadFileSelect, false);
-	
 	document.getElementById('ktsDownloadConfigFile').addEventListener('click', handleDownloadFileSelect);
-
 	document.getElementById('ktsShowPreviewButton').addEventListener('click', showPreviewWithCurrentLayout);
 	document.getElementById('ktsFlipperPreview').style.display = 'none';
-
 	document.getElementById('ktsClosePreviewButton').addEventListener('click', hidePreview);
-	
 	document.getElementById('ktsColorSchemeSample000').classList.remove('kts-dont-show');
 	
 	var schemes = document.getElementsByClassName('kts-flipper-generator-colorscheme');
@@ -184,6 +179,7 @@ function getFlipperParameters(previewClass)
 
 function generateFlipperEmbedCode(param)
 {
+/*
 	var sHTML = ""
 		+ "<span>"
 		+ "  <span id='ktsFlipperWrapper' class='kts-flipper'> loading... </span>"
@@ -201,7 +197,20 @@ function generateFlipperEmbedCode(param)
 		+ "ktsXHTTP.open('GET', 'https://raw.githubusercontent.com/ktsanter/flipper-generator/master/scripts/flipper.js', true);"
 		+ "ktsXHTTP.send();"
 		+ "</script>";
-		
+*/		
+	var sHTML = "<span id='ktsFlipperIframeWrapper'> loading iframe... </span>"
+		+ "<script>"
+		+ "var ktsXHTTP = new XMLHttpRequest();ktsXHTTP.onreadystatechange = function() {"
+		+ "if (this.readyState == 4 && this.status == 200) {"
+		+ "var scriptElement = document.createElement('script');"
+		+ "scriptElement.innerHTML = ktsXHTTP.responseText;"
+		+ "document.getElementById('ktsFlipperIframeWrapper').parentElement.appendChild(scriptElement);"
+		+ "ktsFlipperCode.prepareFlipperIframe('ktsFlipperIframeWrapper', " + JSON.stringify(param) + ");"
+		+ "}"
+		+ "};"	
+		+ "ktsXHTTP.open('GET', 'https://raw.githubusercontent.com/ktsanter/flipper-generator/master/scripts/flipper.js', true);"
+		+ "ktsXHTTP.send();"
+		+ "</script>"
 	return sHTML;
 }
 
